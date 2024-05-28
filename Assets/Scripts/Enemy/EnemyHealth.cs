@@ -9,12 +9,12 @@ public class EnemyHealth : MonoBehaviour
     [Tooltip("Adds amount to maxHitpoints")]
     [SerializeField] int difficultyRamp = 1;
     int currentHitPoints = 0;
-
     Enemy enemy;
-    // Start is called before the first frame update
-    
+    GameManager _gameManager;
+
     private void Start() {
         enemy = GetComponent<Enemy>();
+        _gameManager = FindObjectOfType<GameManager>();
     }
     void OnEnable()
     {
@@ -30,6 +30,7 @@ public class EnemyHealth : MonoBehaviour
         currentHitPoints --;
         if (currentHitPoints <= 0)
         {
+            _gameManager?.EnemyKilled();
             enemy.RewardGold();
             gameObject.SetActive(false);
             maxHitPoints += difficultyRamp; 

@@ -7,8 +7,10 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] GameObject EnemyPrefab;
     [SerializeField][Range(0, 50)] int poolSize = 5;
     [SerializeField][Range(0.1f, 30f)] float SpawnRate = 1f;
-
     GameObject[] pool;
+    GameManager _gameManager;
+    int _targetSpawnCount = 0;
+    int _currentSpawnCount = 0;
 
     void Awake()
     {
@@ -16,7 +18,9 @@ public class EnemySpawner : MonoBehaviour
     }
     void Start()
     {
+        _gameManager = FindObjectOfType<GameManager>();
         StartCoroutine(SpawnEnemy());
+        _targetSpawnCount = _gameManager?.GetEnemiesKillTarget() ?? 0;
     }
 
     void PopulatePool()
@@ -42,10 +46,26 @@ public class EnemySpawner : MonoBehaviour
     }
     IEnumerator SpawnEnemy()
     {
-        while(true)
+        while (true)
         {
-            EnableObjectInPool();
+            if (_currentSpawnCount < _targetSpawnCount)
+            {
+                EnableObjectInPool();
+                _currentSpawnCount++;
+            }
+            else
+            {
+                EnemyMover[] enemyMovers = FindObjectsOfType<EnemyMover>();
+                if (enemyMovers.Length == 0)
+                {
+                    if (_gameManager?.GetEnemiesKilled() < _targetSpawnCount)
+                    {
+                        _currentSpawnCount = _gameManager?.GetEnemiesKilled() ?? _currentSpawnCount - 1;
+                    }
+                }
+            }
             yield return new WaitForSeconds(SpawnRate);
         }
+        
     }
 }
