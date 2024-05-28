@@ -8,7 +8,6 @@ public class Bank : MonoBehaviour
 {
     [SerializeField] int StartingBalance = 150;
     [SerializeField]int currentBalance;
-    // Start is called before the first frame update
     [SerializeField] TextMeshProUGUI displayBalance;
     private void Start() {
         currentBalance = StartingBalance;
@@ -39,7 +38,6 @@ public class Bank : MonoBehaviour
     }
     void ReloadScene()
     {
-        Scene currentScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(currentScene.buildIndex);
+        SceneManager.LoadScene(0);
     }
 }
