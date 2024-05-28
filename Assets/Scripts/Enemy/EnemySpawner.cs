@@ -16,6 +16,7 @@ public class EnemySpawner : MonoBehaviour
     {
         _gameManager = FindObjectOfType<GameManager>();
         _targetSpawnCount = _gameManager?.GetEnemiesKillTarget() ?? 0;
+        /// Make pool size increase with every level
         poolSize += _gameManager?.GetCurrentLevel() ?? 0;
         PopulatePool();
         StartCoroutine(SpawnEnemy());

@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    private void OnApplicationQuit() {
+        _gameData.CurrentLevel = 1;
+    }
     public void StartGame()
     {
         _gameData.CurrentLevel = 1;
