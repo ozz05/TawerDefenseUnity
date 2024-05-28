@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] int _levelRequiredToSpawn = 1;
     [SerializeField] int goldReward = 25;
     [SerializeField] int goldPenalty = 25;
+    public int LevelRequiredToSpawn { get { return _levelRequiredToSpawn;}}
 
     Bank bank;
     // Start is called before the first frame update

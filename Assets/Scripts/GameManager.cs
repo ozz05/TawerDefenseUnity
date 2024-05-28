@@ -27,6 +27,10 @@ public class GameManager : MonoBehaviour
         _gameData.CurrentLevel = 1;
         SceneManager.LoadScene(1);
     }
+    public int GetCurrentLevel()
+    {
+        return _gameData.CurrentLevel;
+    }
     public int GetEnemiesKillTarget()
     {
         return _enemyKillTarget;
@@ -37,7 +41,6 @@ public class GameManager : MonoBehaviour
     }
     public void EnemyKilled()
     {
-        Debug.LogWarning(_enemiesKilled + " : " + _enemyKillTarget);
         _enemiesKilled ++;
         if (_enemiesKilled >= _enemyKillTarget)
         {
